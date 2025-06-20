@@ -177,5 +177,27 @@
             $(this).select();
         });
     });
+
+    $('#id_cargo').change(function() {
+        const cargoId = $(this).val();
+        $.ajax({
+            url: "{% url 'ajax_carregar_colaboradores' %}",
+            data: {
+                'cargo': cargoId
+            },
+            success: function(data) {
+                let select = $('#id_colaboradores');
+                select.empty();
+                if (data_lenght === 0) {
+                    select.append(`<option value="">Nenhum colaborador encontrado</option>`);
+                } else {
+                    select.append(`<option value="">Selecione um colaborador</option>`);
+                    data.forEach(function(colab) {
+                        select.append(`<option value=""` + colab.id + `"">` + colab.nome + `</option>`);
+                    });
+                }
+            }
+        });
+    });
 </script>
 {% endblock %}

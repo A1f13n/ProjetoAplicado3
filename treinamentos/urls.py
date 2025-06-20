@@ -10,4 +10,5 @@ urlpatterns = [
     path('colaboradores/<int:pk>/', views.listar_colaboradores_treinamento, name='listar_colaboradores_treinamento'),
     path('concluir/<int:pk>/', views.registrar_conclusao, name='registrar_conclusao'),
     path('remover/<int:pk>/', views.remover_colaborador_treinamento, name='remover_colaborador_treinamento'),
+    path('ajax/carregar-colaboradores/', views.carregar_colaboradores, name='ajax_carregar_colaboradores'),
 ]

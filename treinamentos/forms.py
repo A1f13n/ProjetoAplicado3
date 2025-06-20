@@ -31,8 +31,7 @@ class AtribuicaoTreinamentoForm(forms.Form):
         }),
         label="Colaboradores"
     )
-    cargo = forms.CharField(
-        max_length=100,
+    cargo = forms.ChoiceField(
         required=False,
         label='Cargo'
     )
@@ -45,3 +44,8 @@ class AtribuicaoTreinamentoForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['data_conclusao'].input_formats = ['%d/%m/%Y'] 
+
+        from colaboradores.models import Colaborador
+        cargos = Colaborador.objects.values_list('cargo', flat=True).distinct()
+
+        self.fields['cargo'].choices = [('', 'Selecione um cargo')] + [(cargo, cargo) for cargo in cargos if cargo]

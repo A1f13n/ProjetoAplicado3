@@ -181,3 +181,8 @@ def buscar_colaboradores(request):
     
     resultados = [{'id': c.id, 'nome': c.nome} for c in colaboradores]
     return JsonResponse(resultados, safe=False)
+
+def carregar_colaboradores(request):
+    cargo_id = request.GET.get('cargo')
+    colaboradores = Colaborador.objects.filter(cargo_id=cargo_id).values('id', 'nome')
+    return JsonResponse(list(colaboradores), safe=False)
